@@ -105,42 +105,49 @@ const menu = [
         price: '6.99',
         description: 'We know you already like hotdogs. Do you like apple and peanut butter? Us too! Try our Apple Dog!',
         type: 'entre',
+        id: 'appleDog',
     },
     {
         name: 'Cream Cheese Dog',
         price: '7.99',
         description: 'This dog is the best! A top quality hoagie with cream cheese, and carmalized onion',
         type: 'entre',
+        id: 'creamCheeseDog',
     },
     {
         name: 'General Dog',
         price: '4.99',
         description: 'Hotdog on a bun',
         type: 'entre',
+        id: 'generalDog',
     },
     {
         name: 'Naked Dog',
         price: '3.99',
         description: 'Hotdog without a bun',
         type: 'entre',    
+        id: 'nakedDog',
     },
     {
         name: 'Chips',
         price: '.99',
         description: 'Pickle Chips',
-        type: 'side',    
+        type: 'side', 
+        id: 'chips'   
     },
     {
         name: 'Soda',
         price: '.99',
         description: 'American sugar water',
         type: 'drink',
+        id: 'soda'
     },
     {
         name: 'Beer',
         price: '1.99',
         description: 'Taste the mountains with your dog',
         type: 'drink',
+        id: 'beer'
     },
 ]
 
@@ -151,6 +158,14 @@ const createDiv = (parent, divClass, divId, divContent) => {
     newDiv.id = divId
     newDiv.innerHTML = divContent
     parent.appendChild(newDiv)
+}
+
+const createElement = (parent, element, elementClass, elementId, elementContent) => {
+    const newElement = document.createElement(element)
+    newElement.classList.add(elementClass)
+    newElement.id = elementId
+    newElement.innerText = elementContent
+    parent.appendChild(newElement)
 }
 
 
@@ -179,5 +194,35 @@ createDiv(contactDiv, 'contactInfo', 'emailInfo', contactInfo.email)
 createDiv(contentDiv, 'menuDiv', 'menuDiv', '')
 const menuDiv = document.getElementById('menuDiv')
 
+//loop menu
+const displayMenu = () => {
+    for (let i = 0; i < menu.length; i++) {
+      let header = menu[i].name;
+      let itemId = menu[i].id
+      let itemDesc = menu[i].description
+      let itemPrice = menu[i].price
+      if (menu[i].type === 'entre') {
+        createDiv(menuDiv, 'entreDiv', 'entreDiv', '' )
+        const entreDiv = document.getElementById('entreDiv')
+        createElement(entreDiv, 'h1', 'menuHeader', itemId, header);
+        createElement(entreDiv, 'p', 'menuDesc', itemId + 'Desc', itemDesc)  
+        createElement(entreDiv, 'h4', 'menuPrice', itemId + 'Price', '$' + itemPrice )      
+      } else if (menu[i].type === 'side') {
+        const sideeDiv = document.getElementById('entreDiv')
+        createElement(sideeDiv, 'h1', 'menuHeader', itemId, header);
+        createElement(sideeDiv, 'p', 'menuDesc', itemId + 'Desc', itemDesc)
+        createElement(sideeDiv, 'h4', 'menuPrice', itemId + 'Price', '$' + itemPrice )  
+      } else if (menu[i].type === 'drink') {
+        const drinkDiv = document.getElementById('entreDiv')
+        createElement(drinkDiv, 'h1', 'menuHeader', itemId, header);
+        createElement(drinkDiv, 'p', 'menuDesc', itemId + 'Desc', itemDesc)
+        createElement(drinkDiv, 'h4', 'menuPrice', itemId + 'Price', '$' + itemPrice )  
+      }
+    }
+  };
+  
+
+
+displayMenu()
 
 
